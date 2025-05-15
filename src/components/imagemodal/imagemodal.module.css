@@ -1,0 +1,64 @@
+.bp_overlay {
+  z-index: 1001;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeec;
+}
+.bigger_picture {
+  padding: 8px 12px;
+  width: 94%;
+  height: max-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  overflow: auto;
+  background-color: var(--bg-color);
+  scrollbar-color: var(--txt-color) var(--bg-color);
+}
+.bigger_picture p {
+  margin: 0;
+  padding: 0;
+}
+.bigger_picture a {
+  color: inherit;
+}
+.bigger_picture img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--txt-color);
+}
+.bigger_picture button {
+  margin: 0;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  color: var(--txt-color);
+  cursor: pointer;
+}
+.likes_download {
+  padding: 0 12px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+@media only screen and (min-width: 1000px) {
+  .bigger_picture {
+    width: 80%;
+    max-width: 1400px;
+    height: 90vh;
+  }
+}

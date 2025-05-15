@@ -1,0 +1,57 @@
+header {
+  margin-left: 32px;
+  margin-bottom: 8px;
+  padding: 48px 12px 4px;
+  position: sticky;
+  top: 0;
+  background-color: var(--hdr-color);
+  border-left: 1px solid var(--txt-color);
+  border-bottom: 1px solid var(--txt-color);
+  border-bottom-left-radius: 12px;
+  box-shadow: -2px 4px 4px var(--txt-color);
+}
+.query {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+}
+.unsplash_logo {
+  fill: var(--bg-color);
+}
+.query input {
+  padding: 4px 8px;
+  width: 100%;
+  font: inherit;
+  border: 2px solid var(--bg-color);
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 1px 1px 4px var(--shadow-color) inset;
+  background-color: var(--inpt-color);
+  color: var(--bg-color);
+}
+.query button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: radial-gradient(circle, var(--txt-color), var(--bg-color));
+  color: var(--bg-color);
+  border: 2px solid var(--bg-color);
+  border-radius: 50%;
+  box-shadow: 1px 1px 4px var(--shadow-color);
+  cursor: pointer;
+}
+@media only screen and (min-width: 768px) {
+  header {
+    padding: 12px 12px;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  header {
+    margin-left: calc(100% / 3);
+  }
+}

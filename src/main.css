@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('./font/nunito.ttf');
+}
+:root {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --txt-color: #e4d0a1;
+  --bg-color: #3c3726;
+  --card-color: #d3fdb37b;
+  --shadow-color: rgb(115, 85, 10);
+  --btn-bg: #e4f5a9a2;
+  --btn-focus: #e5f5a9;
+  --inpt-color: whitesmoke;
+  --err-color: #037b7b;
+  --hdr-color: rgb(137, 119, 87);
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+}
+ul {
+  list-style-type: none;
+}
+.ReactModal__Body--open,
+.ReactModal__Html--open {
+  overflow: hidden;
+}
