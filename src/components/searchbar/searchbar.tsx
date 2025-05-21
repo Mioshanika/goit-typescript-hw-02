@@ -1,15 +1,21 @@
 import s from './searchbar.module.css';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 
-export default function SearchBar({ onSubmit }) {
-  const handleSubmit = (values, actions) => {
+interface ISearchBarProps { 
+  onSubmit: (query: string) => void;
+}
+interface IFormValues {
+  query: string;
+}
+export default function SearchBar({ onSubmit }: ISearchBarProps) {
+  const handleSubmit = (values:IFormValues, actions:FormikHelpers<IFormValues>) => {
     onSubmit(values.query);
     actions.resetForm();
   };
   return (
     <header>
-      <Formik initialValues={{ query: '' }} onSubmit={handleSubmit}>
+      <Formik<IFormValues> initialValues={{ query: '' }} onSubmit={handleSubmit}>
         <Form className={s.query}>
           <a
             className={s.unsplash_logo}

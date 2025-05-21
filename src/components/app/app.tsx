@@ -9,29 +9,51 @@ import LoadMoreBtn from '../loadmorebtn/loadmorebtn';
 import ImageModal from '../imagemodal/imagemodal';
 import { requestData } from '../../services/api';
 
+export interface IImageHit {
+  id: string;
+  alt_description: string | undefined;
+  description: string | undefined;
+  likes: number;
+  urls: {
+    small: string;
+    regular: string;
+  };
+  user: {
+    username: string;
+    name: string;
+  };
+  links: { download: string; };
+}
+export interface IApiResponse {
+  total: number;
+  total_pages: number;
+  results: IImageHit[];
+}
+
 export default function App() {
   // API states
-  const [hits, setHits] = useState([]);
-  const [query, setQuery] = useState('badger');
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
+  const [hits, setHits] = useState<IImageHit[]>([]);
+  const [query, setQuery] = useState<string>('badger');
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errMsg, setErrMsg] = useState<string>('');
   // Modal states
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [viewedImg, setViewedImg] = useState(() => {
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [viewedImg, setViewedImg] = useState<IImageHit>(() => {
     if (hits.length) return hits[0];
     return {
+      id: 'notFound',
       alt_description: 'Image not found',
       description: '',
       likes: 0,
-      urls: { regular: '/react.svg' },
+      urls: { small: '/react.svg', regular: '/react.svg' },
       user: { username: 'notFound', name: 'Unknown' },
       links: { download: '/react.svg' },
     };
   });
   // Functions
-  const handleQueryChange = newQuery => {
+  const handleQueryChange = (newQuery: string) => {
     if (!newQuery.trim()) return toast.error('Nothing to query');
     setQuery(newQuery);
     setHits([]);
@@ -46,7 +68,7 @@ export default function App() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
-  const handleEnlarge = image => {
+  const handleEnlarge = (image: IImageHit) => {
     setViewedImg(image);
     openModal();
   };
@@ -57,13 +79,21 @@ export default function App() {
       try {
         setIsLoading(true);
         setErrMsg('');
-        const apiData = await requestData(query, page, cancelQuery.signal);
+        const apiData = await requestData<IApiResponse>(query, page, cancelQuery.signal);
         setHits(prev => [...prev, ...apiData.results]);
         setTotalPages(apiData.total_pages);
       } catch (err) {
-        if (err.code !== 'ERR_CANCELED') {
+        if (err && typeof err === 'object' && 'code' in err) { 
+          if (err.code !== 'ERR_CANCELED') {
+            setErrMsg((err as any).message || 'Unknown error');
+            toast.error('Query error occurred');
+          }
+        } else if (err instanceof Error) {
           setErrMsg(err.message);
-          toast.error('Query error occured');
+          toast.error('Query error occurred');
+        } else {
+          setErrMsg('Unknown error');
+          toast.error('Unknown error');
         }
       } finally {
         setIsLoading(false);

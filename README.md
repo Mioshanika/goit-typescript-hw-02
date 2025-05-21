@@ -1,1 +1,1 @@
-GoIT React study module #3, homework.
+GoIT TypeScript study module #2, homework.

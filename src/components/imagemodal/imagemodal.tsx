@@ -4,8 +4,15 @@ import { MdClose } from 'react-icons/md';
 import { BiLike } from 'react-icons/bi';
 import { FaDownload } from 'react-icons/fa';
 import { ImProfile } from 'react-icons/im';
+import { IImageHit } from '../app/app';
 
-export default function ImageModal({ image, isOpen, onClose }) {
+interface IImageModalProps { 
+  image: IImageHit;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function ImageModal({ image, isOpen, onClose }:IImageModalProps) {
   ReactModal.setAppElement('#root');
   const authorLink = `https://unsplash.com/@${image.user.username}?utm_source=js_react_gallery&utm_medium=referral`;
   return (
